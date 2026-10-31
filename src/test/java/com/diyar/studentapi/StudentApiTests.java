@@ -55,4 +55,11 @@ class StudentApiTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.fullName").value("Diyar Bakhyt Updated"));
     }
+
+    @Test
+    void deleteStudent() throws Exception {
+        Student s = repo.save(new Student("Test Delete", "d@example.com", "2", "IT2-2301"));
+        mvc.perform(delete("/api/students/" + s.getId())).andExpect(status().isNoContent());
+        mvc.perform(get("/api/students/" + s.getId())).andExpect(status().isNotFound());
+    }
 }

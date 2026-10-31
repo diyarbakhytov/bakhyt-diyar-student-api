@@ -42,4 +42,11 @@ public class StudentController {
         student.setGroupName(data.getGroupName());
         return repo.save(student);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        one(id);
+        repo.deleteById(id);
+    }
 }
