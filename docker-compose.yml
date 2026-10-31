@@ -1,0 +1,42 @@
+name: bakhyt-diyar-student-api
+
+services:
+  db:
+    image: postgres:16
+    container_name: bakhyt-diyar-postgres
+    environment:
+      POSTGRES_DB: studentdb
+      POSTGRES_USER: student
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - bakhyt_diyar_pgdata:/var/lib/postgresql/data
+    networks:
+      - bakhyt-diyar-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U student -d studentdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    image: bakhyt-diyar-student-api:v1.1-bakhyt-diyar-38310
+    container_name: bakhyt-diyar-app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/studentdb
+      DB_USER: student
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "8081:8080"
+    networks:
+      - bakhyt-diyar-net
+
+volumes:
+  bakhyt_diyar_pgdata:
+
+networks:
+  bakhyt-diyar-net:
+    name: bakhyt-diyar-net

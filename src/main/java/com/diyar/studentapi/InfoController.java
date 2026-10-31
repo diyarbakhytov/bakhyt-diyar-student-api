@@ -13,6 +13,7 @@ public class InfoController {
                 "application", "Student API",
                 "student", "Diyar Bakhyt",
                 "group", "IT2-2301",
-                "studentId", "38310");
+                "studentId", "38310",
+                "version", "1.1");
     }
 }
