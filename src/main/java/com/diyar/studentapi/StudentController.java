@@ -32,4 +32,21 @@ public class StudentController {
         student.setId(null);
         return repo.save(student);
     }
+
+    @PutMapping("/{id}")
+    public Student update(@PathVariable Long id, @RequestBody Student data) {
+        Student student = one(id);
+        student.setFullName(data.getFullName());
+        student.setEmail(data.getEmail());
+        student.setStudentId(data.getStudentId());
+        student.setGroupName(data.getGroupName());
+        return repo.save(student);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        one(id);
+        repo.deleteById(id);
+    }
 }
