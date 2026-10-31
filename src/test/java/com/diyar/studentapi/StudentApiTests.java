@@ -28,7 +28,7 @@ class StudentApiTests {
     void infoShowsStudentName() throws Exception {
         mvc.perform(get("/api/info"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.student").value("Wrong Name"));
+                .andExpect(jsonPath("$.student").value("Diyar Bakhyt"));
     }
 
     @Test
