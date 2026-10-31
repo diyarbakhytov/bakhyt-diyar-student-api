@@ -45,4 +45,14 @@ class StudentApiTests {
     void unknownStudentReturns404() throws Exception {
         mvc.perform(get("/api/students/99999")).andExpect(status().isNotFound());
     }
+
+    @Test
+    void updateStudent() throws Exception {
+        Student s = repo.save(new Student("Test Update", "t@example.com", "1", "IT2-2301"));
+        String body = "{\"fullName\":\"Diyar Bakhyt Updated\",\"email\":\"t@example.com\","
+                + "\"studentId\":\"38310\",\"groupName\":\"IT2-2301\"}";
+        mvc.perform(put("/api/students/" + s.getId()).contentType(MediaType.APPLICATION_JSON).content(body))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.fullName").value("Diyar Bakhyt Updated"));
+    }
 }
