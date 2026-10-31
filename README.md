@@ -13,3 +13,5 @@ Docker Compose and a Jenkins CI pipeline.
 - POST /api/students - create a student
 - PUT /api/students/{id} - update a student (added by Diyar Bakhyt)
 - DELETE /api/students/{id} - delete a student (added by Diyar Bakhyt)
+
+CI check: automatic build triggered by Diyar Bakhyt
